@@ -131,9 +131,9 @@ function NextQuestion(index) {
 }
 
 function checkForAnswer() {
-  const currentQuestion = shuffledQuestions[indexNumber]; //gets current Question
-  const currentQuestionAnswer = currentQuestion.correctOption; //gets current Question's answer
-  const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
+  const currentQuestion = shuffledQuestions[indexNumber]; //получает текущий вопрос
+  const currentQuestionAnswer = currentQuestion.correctOption; //получает ответ на текущий вопрос
+  const options = document.getElementsByName("option"); //получает все элементы в dom с именем 'option' (в данном случае радиовходы)
   let correctOption = null;
 
   options.forEach((option) => {
@@ -143,7 +143,7 @@ function checkForAnswer() {
     }
   });
 
-  //checking to make sure a radio input has been checked or an option being chosen
+  //проверка, чтобы убедиться, что установлен флажок радиовхода или выбрана опция
   if (
     options[0].checked === false &&
     options[1].checked === false &&
@@ -152,21 +152,19 @@ function checkForAnswer() {
   ) {
     document.getElementById("option-modal").style.display = "flex";
   }
-  //   вот эту хуйню надо УБРАТЬ НАХУЙ
 
   // проверяем, совпадает ли отмеченный переключатель с ответом
   options.forEach((option) => {
     if (option.checked === true && option.value === currentQuestionAnswer) {
-      playerScore++; //adding to player's score
-      indexNumber++; //adding 1 to index so has to display next question..
-      //set to delay question number till when next question loads
+      playerScore++; //добавление к счету игрока
+      indexNumber++; //добавление 1 к индексу, таким образом, должно отобразить следующий вопрос
+      //установите задержку номера вопроса до загрузки следующего вопроса
       setTimeout(() => {
         questionNumber++;
       }, 100);
-      //   вот эту хуйню надо УБРАТЬ НАХУЙ
     } else if (option.checked && option.value !== currentQuestionAnswer) {
       indexNumber++;
-      //set to delay question number till when next question loads
+      //установили задержку номера вопроса до загрузки следующего вопроса
       setTimeout(() => {
         questionNumber++;
       }, 100);
@@ -176,15 +174,15 @@ function checkForAnswer() {
 
 //вызывается при вызове следующей кнопки
 function handleNextQuestion() {
-  checkForAnswer(); //check if player picked right or wrong option
+  checkForAnswer(); //проверяем, выбрал ли игрок правильный или неправильный вариант
   unCheckRadioButtons();
-  //delays next question displaying for a second just for some effects so questions don't rush in on player
+  //задерживает отображение следующего вопроса на секунду только для некоторых эффектов, чтобы вопросы не сыпались на игрока
   setTimeout(() => {
     if (indexNumber <= 9) {
-      //displays next question as long as index number isn't greater than 9, remember index number starts from 0, so index 9 is question 10
+      //отображает следующий вопрос до тех пор, пока номер индекса не превысит 9
       NextQuestion(indexNumber);
     } else {
-      handleEndGame(); //ends game if index number greater than 9 meaning we're already at the 10th question
+      handleEndGame(); //игра заканчивается, если число индекса больше 9, что означает, что мы уже подошли к 10-му вопросу
     }
     resetOptionBackground();
   }, 100);
@@ -198,7 +196,7 @@ function resetOptionBackground() {
   });
 }
 
-// unchecking all radio buttons for next question(can be done with map or foreach loop also)
+// снимимаем все переключатели для следующего вопроса (также можно выполнить с помощью map или foreach loop)
 function unCheckRadioButtons() {
   const options = document.getElementsByName("option");
   for (let i = 0; i < options.length; i++) {
@@ -206,7 +204,7 @@ function unCheckRadioButtons() {
   }
 }
 
-// function for when all questions being answered
+//  функция для получения ответов на все вопросы
 function handleEndGame() {
   let remark = null;
   let remarkColor = null;
